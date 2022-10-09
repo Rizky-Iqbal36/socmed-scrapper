@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  scrapper-app:
+    container_name: scrapper-app
+    image: scrapper-app
+    build: 
+      context: .
+      target: builder
+    restart: always
+    working_dir: /app
+    ports:
+      - 3000:3000
+    command: npm run start:dev
+    networks:
+      - scrapper_network
+  webdriver-standalone:
+    container_name: webdriver-standalone
+    # image: selenium/standalone-firefox:4.3.0-20220726
+    image: selenium/standalone-chrome:4.3.0-20220726
+    restart: always
+    shm_size: 2g
+    environment:
+      - SE_VNC_VIEW_ONLY=1
+    ports:
+      - 4444:4444
+    networks:
+      - scrapper_network
+
+networks:
+  scrapper_network:
+    driver: bridge
+    name: scrapper_network
