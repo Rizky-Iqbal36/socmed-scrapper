@@ -11,6 +11,7 @@ logs
 
 # Tests
 /coverage
+junit.xml
 
 # IDE - VSCode
 .vscode/*
