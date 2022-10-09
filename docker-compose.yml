@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  scrapper-app:
+    container_name: scrapper-app
+    image: scrapper-app
+    build: 
+      context: .
+      target: builder
+    restart: always
+    working_dir: /app
+    ports:
+      - 3000:3000
+    command: npm run start:dev
+    networks:
+      - scrapper_network
+
+networks:
+  scrapper_network:
+    driver: bridge
+    name: scrapper_network
