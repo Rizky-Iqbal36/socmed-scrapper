@@ -9,9 +9,6 @@ _Put an `x` in the boxes that apply_
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] Documentation Update (if none of the other choices apply)
 
-## How to Test
-_Explain the steps to test this PR_
-
 ## Expected Results
 _Please explain or list the expected results_
 1. -
