@@ -12,6 +12,9 @@ const appConfig = {
     version: pjson.version,
     env: (validNodeEnv.includes((process.env as any).NODE_ENV) ? process.env.NODE_ENV : 'development') as string,
     port: parseInt((process.env as any).PORT) || 3000
+  },
+  webdriver: {
+    serverUrl: process.env.WEBDRIVER_SERVER_URL as string,
   }
 }
 
