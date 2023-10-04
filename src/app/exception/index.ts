@@ -14,14 +14,24 @@ export class SuccessResponse extends HttpException {
 
 export class CustomHttpException extends HttpException {
   public details: IDetailException
-  constructor(httpStatus: number, details: IDetailException, messageOption: IMessageOption) {
-    super("INTERNAL SERVER ERROR", httpStatus)
+  constructor(private readonly httpStatus: number, details: IDetailException, messageOption: IMessageOption) {
+    super('INTERNAL SERVER ERROR', httpStatus)
     this.details = details
     this.getMessage(messageOption)
   }
 
   private getMessage(messageOption: IMessageOption) {
     if (messageOption.message) super.message = messageOption.message
+    else {
+      const HTTPStatusDesc = HttpStatus[this.httpStatus]
+      const message = HTTPStatusDesc.split('_')
+        .map(word => {
+          word = word.toLowerCase()
+          return word.charAt(0).toUpperCase() + word.slice(1)
+        })
+        .join(' ')
+      super.message = message
+    }
   }
 }
 
