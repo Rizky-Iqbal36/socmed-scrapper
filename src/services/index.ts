@@ -1,3 +1,6 @@
 import { AppService } from '@service/app.service'
 
-export default [AppService]
+import { InstagramService } from './socmed/instagram.service'
+const SocmedServices = [InstagramService]
+
+export default [AppService, ...SocmedServices]
