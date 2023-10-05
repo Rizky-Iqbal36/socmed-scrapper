@@ -1,19 +1,5 @@
-# compiled output
 /dist
 /node_modules
-
-# Logs
-logs
-*.log
-
-# OS
-.DS*
-
-# Tests
-/coverage
-junit.xml
-
-# IDE - VSCode
-.vscode/*
-
 .env
+chromedriver.exe
+my*
