@@ -1,5 +1,6 @@
-import { ThenableWebDriver, Builder, By, until } from 'selenium-webdriver'
+import { ThenableWebDriver, Builder, By, until, WebElement } from 'selenium-webdriver'
 import appConfig from '@app/config'
+import { InternalServerError } from '../exception'
 
 export default class SeleniumWebDriver {
   private builder: Builder
@@ -7,9 +8,8 @@ export default class SeleniumWebDriver {
 
   constructor() {
     const { webdriver } = appConfig
-    this.builder = new Builder()
-      .forBrowser('chrome')
-      .usingServer(webdriver.serverUrl)
+    this.builder = new Builder().forBrowser('chrome')
+    // .usingServer(webdriver.serverUrl)
   }
 
   private isWebDriverBuilded() {
@@ -30,6 +30,14 @@ export default class SeleniumWebDriver {
     return this.webDriver
       .wait(until.elementLocated(by), waitPageToBerendered * 1000)
       .then(async () => this.webDriver.findElement(by))
-      .catch(() => undefined)
+      .catch(async err => {
+        await this.closeWebDriver()
+        throw new InternalServerError({ errorOnCommentSection: err })
+      })
+  }
+
+  public async getTextInsideElement(element: WebElement, by: By) {
+    const searchedElement = await element.findElement(by)
+    return searchedElement.getText()
   }
 }
